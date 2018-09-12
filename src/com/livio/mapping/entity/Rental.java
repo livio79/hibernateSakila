@@ -23,6 +23,7 @@ public class Rental {
 //	private int inventoryId;
 	
 	@ManyToOne
+	@JoinColumn(name="inventory_id")
 	private Inventory inventory;
 	
 	

@@ -27,9 +27,23 @@ public class Customer {
 	@Column(name="email")
 	private String email;
 	
-	@Column(name="address_id")
-	private short addressId;
 	
+	//ManyToOne ADDRESS
+//	@Column(name="address_id")
+//	private short addressId;
+	
+	@ManyToOne
+	@JoinColumn(name="address_id")
+	private Address address;
+	
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
 	@Column(name="active")
 	private byte active;
 	
@@ -42,14 +56,12 @@ public class Customer {
 	
 	public Customer() {}
 
-	public Customer(byte storeId, String firstName, String lastName, String email, short addressId, byte active,
-			LocalDateTime createDate) {
+	public Customer(byte storeId, String firstName, String lastName, String email, byte active,	LocalDateTime createDate) {
 		super();
 		this.storeId = storeId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
-		this.addressId = addressId;
 		this.active = active;
 		this.createDate = createDate;
 	}
@@ -92,14 +104,6 @@ public class Customer {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public short getAddressId() {
-		return addressId;
-	}
-
-	public void setAddressId(short addressId) {
-		this.addressId = addressId;
 	}
 
 	public byte getActive() {

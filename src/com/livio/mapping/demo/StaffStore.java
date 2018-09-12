@@ -51,13 +51,11 @@ public class StaffStore {
  
 			session.beginTransaction();
 			
-			 Staff staff = new Staff("Paul2", "Lulu", (short)1, "email", (byte)1,"username", "password");
+			// Staff staff = new Staff("Paul2", "Lulu", (short)1, "email", (byte)1,"username", "password");
 			 Store store = session.get(Store.class, 1);
 			 
-			store.addStaff(staff);
-			
-			 
-			 session.save(staff);
+//			 store.addStaff(staff);
+//			 session.save(staff);
 			
 			
 		 

@@ -10,14 +10,17 @@ import com.livio.mapping.entity.*;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration; 
 
-public class RentalInventory {
+
+public class AddressCustomer {
 
 	public static void main(String[] args) {
 
@@ -41,28 +44,25 @@ public class RentalInventory {
 				.buildSessionFactory();
 		
 		// create session
-		Session session = factory.getCurrentSession();
-		 
-		LocalDateTime date = LocalDateTime.of(2011, 06, 20, 10, 10, 10);
+		Session session = factory.getCurrentSession(); 
 		
-		 
+		Address address = new Address("47 MySakila Drive", "47 MySakila Drive2", "Alberta", "PCode", "Phone");
+  				
 		try {		
+ 
 			session.beginTransaction();
 			
-		 Rental rental = new Rental(date, (short)1, date, (byte)1);
-		 Inventory inventory = new Inventory();
-		 Film film = session.get(Film.class, 1);
-		 Store store = session.get(Store.class, 1);
-		 
-		 inventory.setFilm(film);
-		 inventory.setStore(store);
-
-		 inventory.addRental(rental);
-		 
- 		
- 		 session.save(inventory);	
-			  session.save(rental);
+			City city = session.get(City.class, 1);
 			
+			address.setCity(city);
+			
+			LocalDateTime date = LocalDateTime.of(2018, 10, 10, 10, 10, 10);
+			Customer customer = new Customer((byte) 1, "First", "lastName", "email",  (byte)1, date);
+
+			address.addCustomer(customer);
+			
+			session.save(address);
+			session.save(customer);
 		 
 			session.getTransaction().commit();
 			
@@ -74,6 +74,5 @@ public class RentalInventory {
 	}
 
 }
-
 
 

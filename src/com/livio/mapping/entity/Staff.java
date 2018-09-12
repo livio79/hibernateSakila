@@ -23,14 +23,29 @@ public class Staff {
 	@Column(name="last_name")
 	private String lastName;
 	
-	@Column(name="address_id")
-	private short addressId;
 	
+	
+//	@Column(name="address_id")
+//	private short addressId;
+	
+	@ManyToOne
+	@JoinColumn(name="address_id")
+	private Address address;
+	
+
+	
+	public Address getAddress() {
+		return address;
+	}
+
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+
 	@Column(name="email")
 	private String email;
-	
-	
-	
 	
 	@Column(name="active")
 	private byte active;
@@ -74,12 +89,11 @@ public class Staff {
 	public Staff() {}
 
 
-	public Staff(String firstName, String lastName, short addressId, String email, byte active,
+	public Staff(String firstName, String lastName, String email, byte active,
 			String username, String password) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.addressId = addressId;
 		this.email = email;
 		this.active = active;
 		this.username = username;
@@ -114,16 +128,6 @@ public class Staff {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
-	}
-
-
-	public short getAddressId() {
-		return addressId;
-	}
-
-
-	public void setAddressId(short addressId) {
-		this.addressId = addressId;
 	}
 
 
@@ -179,8 +183,7 @@ public class Staff {
 
 	@Override
 	public String toString() {
-		return "Staff [staffId=" + staffId + ", firstName=" + firstName + ", lastName=" + lastName + ", addressId="
-				+ addressId + ", email=" + email + " active=" + active + ", username="
+		return "Staff [staffId=" + staffId + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + " active=" + active + ", username="
 				+ username + ", password=" + password + ", lastUpdate=" + lastUpdate + "]";
 	}
 	

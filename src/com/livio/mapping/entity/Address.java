@@ -77,6 +77,35 @@ public class Address {
 	private LocalDateTime lastUpdate;
 	
 	
+	
+	@OneToMany(mappedBy="address")
+	private List<Customer> customers = new ArrayList<>();
+	
+	public void addCustomer(Customer customer) {
+		customers.add(customer);
+		customer.setAddress(this);
+	}
+	
+	public void removeCustomer(Customer customer) {
+		customers.remove(customer);
+		customer.setAddress(null);
+	}
+	
+	
+	@OneToMany(mappedBy="address")
+	private List<Staff> staffs = new ArrayList<>();
+	
+	public void addStaff(Staff staff) {
+		staffs.add(staff);
+		staff.setAddress(this);
+	}
+	
+	public void removeStaff(Staff staff) {
+		staffs.remove(staff);
+		staff.setAddress(null);
+	}
+	
+	
 	public Address() {}
 
 
