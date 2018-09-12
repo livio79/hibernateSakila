@@ -10,14 +10,17 @@ import com.livio.mapping.entity.*;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration; 
 
-public class RentalInventory {
+
+public class StoreCustomer {
 
 	public static void main(String[] args) {
 
@@ -41,26 +44,26 @@ public class RentalInventory {
 				.buildSessionFactory();
 		
 		// create session
-		Session session = factory.getCurrentSession();
-		 
-		LocalDateTime date = LocalDateTime.of(2011, 06, 20, 10, 10, 10);
-		
-		 
+		Session session = factory.getCurrentSession(); 
+		  				
 		try {		
+ 
 			session.beginTransaction();
 			
-			Inventory inventory = session.get(Inventory.class, 1);
 			
 			
-			 Customer customer  = session.get(Customer.class, 1);
-			 Staff staff  = session.get(Staff.class, 1);
-			 
-			 Rental rental = new Rental(date, date);
-			 rental.setCustomer(customer);
-			 rental.setStaff(staff);
- 			 
-			 inventory.addRental(rental);
- 			session.save(rental);
+			Store store = session.get(Store.class, 1);
+			Address address = session.get(Address.class, 1);
+			
+			LocalDateTime date = LocalDateTime.of(2018, 10, 10, 10, 10, 10);
+			Customer customer = new Customer("Last", "lastName", "email",  (byte)1, date);
+			customer.setAddress(address);
+			
+			store.addCustomer(customer);
+			  
+			
+			session.save(store);
+			session.save(customer);
 		 
 			session.getTransaction().commit();
 			
@@ -72,6 +75,5 @@ public class RentalInventory {
 	}
 
 }
-
 
 

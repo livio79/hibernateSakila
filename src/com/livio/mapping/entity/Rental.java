@@ -41,27 +41,53 @@ public class Rental {
 	
 	
 
-	@Column(name="customer_id")
-	private short customerId;
+//	@Column(name="customer_id")
+//	private short customerId;
 	
+	@ManyToOne
+	@JoinColumn(name="customer_id")
+	private Customer customer;
+	
+	
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+	
+
+
 	@Column(name="return_date")
 	private LocalDateTime returnDate;
 	
-	@Column(name="staff_id")
-	private byte staffId;
+//	@Column(name="staff_id")
+//	private byte staffId;
 	
+	@ManyToOne
+	@JoinColumn(name="staff_id")
+	private Staff staff;
+	
+	public Staff getStaff() {
+		return staff;
+	}
+
+	public void setStaff(Staff staff) {
+		this.staff = staff;
+	}
+
+
 	@CreationTimestamp
 	@Column(name="last_update")
 	private LocalDateTime lastUpdate;
 	
 	public Rental() {}
 
-	public Rental(LocalDateTime rentalDate, short customerId, LocalDateTime returnDate, byte staffId) {
+	public Rental(LocalDateTime rentalDate, LocalDateTime returnDate) {
 		super();
 		this.rentalDate = rentalDate;
-		this.customerId = customerId;
 		this.returnDate = returnDate;
-		this.staffId = staffId;
 	}
 
 	public int getRentalId() {
@@ -80,28 +106,12 @@ public class Rental {
 		this.rentalDate = rentalDate;
 	}
 
-	public short getCustomerId() {
-		return customerId;
-	}
-
-	public void setCustomerId(short customerId) {
-		this.customerId = customerId;
-	}
-
 	public LocalDateTime getDatetime() {
 		return returnDate;
 	}
 
 	public void setDatetime(LocalDateTime returnDate) {
 		this.returnDate = returnDate;
-	}
-
-	public byte getStaffId() {
-		return staffId;
-	}
-
-	public void setStaffId(byte staffId) {
-		this.staffId = staffId;
 	}
 
 	public LocalDateTime getLastUpdate() {

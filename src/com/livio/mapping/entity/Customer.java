@@ -1,6 +1,8 @@
 package com.livio.mapping.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -15,9 +17,25 @@ public class Customer {
 	@Column(name="customer_id")
 	private int customerId;
 	
-	@Column(name="store_id")
-	private byte storeId;
+//	@Column(name="store_id")
+//	private byte storeId;
 	
+	@ManyToOne
+	@JoinColumn(name="store_id")
+	private Store store;
+	
+	
+	public Store getStore() {
+		return store;
+	}
+
+	public void setStore(Store store) {
+		this.store = store;
+	}
+	
+	
+	
+
 	@Column(name="first_name")
 	private String firstName;
 	
@@ -54,11 +72,24 @@ public class Customer {
 	@Column(name="last_update")
 	private LocalDateTime lastUpdate;
 	
+	
+	@OneToMany(mappedBy="customer")
+	private List<Rental> rentals = new ArrayList<>();
+	
+	public void addRental(Rental rental) {
+		rentals.add(rental);
+		rental.setCustomer(this);
+	}
+	
+	public void removeRental(Rental rental) {
+		rentals.remove(rental);
+		rental.setCustomer(null);
+	}
+	
 	public Customer() {}
 
-	public Customer(byte storeId, String firstName, String lastName, String email, byte active,	LocalDateTime createDate) {
+	public Customer(String firstName, String lastName, String email, byte active,	LocalDateTime createDate) {
 		super();
-		this.storeId = storeId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
@@ -74,13 +105,6 @@ public class Customer {
 		this.customerId = customerId;
 	}
 
-	public byte getStoreId() {
-		return storeId;
-	}
-
-	public void setStoreId(byte storeId) {
-		this.storeId = storeId;
-	}
 
 	public String getFirstName() {
 		return firstName;

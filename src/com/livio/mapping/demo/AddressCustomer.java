@@ -57,7 +57,7 @@ public class AddressCustomer {
 			address.setCity(city);
 			
 			LocalDateTime date = LocalDateTime.of(2018, 10, 10, 10, 10, 10);
-			Customer customer = new Customer((byte) 1, "First", "lastName", "email",  (byte)1, date);
+			Customer customer = new Customer( "First", "lastName", "email",  (byte)1, date);
 
 			address.addCustomer(customer);
 			

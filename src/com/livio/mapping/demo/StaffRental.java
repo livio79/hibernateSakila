@@ -17,7 +17,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration; 
 
-public class RentalInventory {
+
+public class StaffRental {
 
 	public static void main(String[] args) {
 
@@ -37,30 +38,38 @@ public class RentalInventory {
 				.addAnnotatedClass(Rental.class)
 				.addAnnotatedClass(Staff.class)
 				.addAnnotatedClass(Store.class)
-				.addAnnotatedClass(Customer.class)
 				.buildSessionFactory();
 		
 		// create session
-		Session session = factory.getCurrentSession();
-		 
-		LocalDateTime date = LocalDateTime.of(2011, 06, 20, 10, 10, 10);
+		Session session = factory.getCurrentSession(); 
 		
-		 
+		  
 		try {		
+ 
 			session.beginTransaction();
 			
-			Inventory inventory = session.get(Inventory.class, 1);
-			
-			
+ 			 Staff staff = new Staff("Rental", "Lulu", "email", (byte)1,"username", "password");
+			 Store store = session.get(Store.class, 1);
+			 Address address = session.get(Address.class, 1);
+			 
+			 staff.setStore(store);
+			 staff.setAddress(address);
+			 
+			 
+			 LocalDateTime date = LocalDateTime.of(2011, 06, 20, 10, 10, 10);
+			 Inventory inventory = session.get(Inventory.class, 1);
 			 Customer customer  = session.get(Customer.class, 1);
-			 Staff staff  = session.get(Staff.class, 1);
 			 
 			 Rental rental = new Rental(date, date);
+			 rental.setInventory(inventory);
 			 rental.setCustomer(customer);
-			 rental.setStaff(staff);
- 			 
-			 inventory.addRental(rental);
- 			session.save(rental);
+			 
+			 
+			 staff.addRental(rental);
+			 
+ 			 session.save(staff);
+ 			 session.save(rental);
+			
 		 
 			session.getTransaction().commit();
 			
@@ -72,6 +81,5 @@ public class RentalInventory {
 	}
 
 }
-
 
 

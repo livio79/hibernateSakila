@@ -25,7 +25,7 @@ public class Store {
 	
 	
 	
-	//************************************************************Inventory
+	//INVENTORY
 	 
 	@OneToMany(mappedBy="store")
 	List<Inventory> inventories = new ArrayList<>();
@@ -40,9 +40,9 @@ public class Store {
 		inventory.setStore(null);
 	}
 	 
-	//************************************************************Inventory	
 	
-	//************************************************************Address
+	
+	//ADDRESS
 //	@Column(name="address_id")
 //	private short addressId;
 	
@@ -57,11 +57,9 @@ public class Store {
 		this.address = address;
 	}
 	
-	//************************************************************Address
 	
 	
-	//************************************************************ Staff
-	
+	//STAFF
 	@OneToMany(mappedBy="store")
 	List<Staff> staffs = new ArrayList<>();
 	
@@ -74,21 +72,25 @@ public class Store {
 		staffs.remove(staff);
 		staff.setStore(null);
 	}
-	//************************************************************ Staff
-
 	
 	
-	 
 	
+	//CUSTOMER 
+	@OneToMany(mappedBy="store")
+	private List<Customer> customers = new ArrayList<>();
 	
+	public void addCustomer(Customer customer) {
+		customers.add(customer);
+		customer.setStore(this);
+	}
+	
+	public void removeCustomer(Customer customer) {
+		customers.remove(customer);
+		customer.setStore(null);
+	}
 	
 	public Store() {}
  
-
-//	public Store(byte managerStaffId ) {
-//		super();
-//		this.managerStaffId = managerStaffId; 
-//	}
 
 	public int getStoreId() {
 		return storeId;

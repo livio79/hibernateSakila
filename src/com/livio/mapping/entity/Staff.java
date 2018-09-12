@@ -80,10 +80,32 @@ public class Staff {
 	
 	//************************************************************ Store 
 	
+	@OneToMany(mappedBy="staff")
+	private List<Payment> payments = new ArrayList<>();
+	
+	public void addPayment(Payment payment) {
+		payments.add(payment);
+		payment.setStaff(this);
+	}
+	
+	public void removePayment(Payment payment) {
+		payments.remove(payment);
+		payment.setStaff(null);
+	}
 	
 	
-
-
+	@OneToMany(mappedBy="staff")
+	private List<Rental> rentals = new ArrayList<>();
+	
+	public void addRental(Rental rental) {
+		rentals.add(rental);
+		rental.setStaff(this);
+	}
+	
+	public void removeRental(Rental rental) {
+		rentals.remove(rental);
+		rental.setStaff(null);
+	}
 	
 
 	public Staff() {}

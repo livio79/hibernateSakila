@@ -6,6 +6,8 @@ import javax.persistence.*;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+@Entity
+@Table(name="payment")
 public class Payment {
 	
 	@Id
@@ -16,9 +18,22 @@ public class Payment {
 	@Column(name="customer_id")
 	private short customerId;
 	
-	@Column(name="staff_id")
-	private byte staffId;
+//	@Column(name="staff_id")
+//	private byte staffId;
 	
+	@ManyToOne
+	@JoinColumn(name="staff_id")
+	private Staff staff;
+	
+	
+	public Staff getStaff() {
+		return staff;
+	}
+
+	public void setStaff(Staff staff) {
+		this.staff = staff;
+	}
+
 	@Column(name="rental_id")
 	private int rentalId;
 	
@@ -35,10 +50,9 @@ public class Payment {
 	
 	public Payment() {}
 
-	public Payment(short customerId, byte staffId, int rentalId, double amount, LocalDateTime paymentDate) {
+	public Payment(short customerId, int rentalId, double amount, LocalDateTime paymentDate) {
 		super();
 		this.customerId = customerId;
-		this.staffId = staffId;
 		this.rentalId = rentalId;
 		this.amount = amount;
 		this.paymentDate = paymentDate;
@@ -58,14 +72,6 @@ public class Payment {
 
 	public void setCustomerId(short customerId) {
 		this.customerId = customerId;
-	}
-
-	public byte getStaffId() {
-		return staffId;
-	}
-
-	public void setStaffId(byte staffId) {
-		this.staffId = staffId;
 	}
 
 	public int getRentalId() {
@@ -102,7 +108,7 @@ public class Payment {
 
 	@Override
 	public String toString() {
-		return "Payment [paymentId=" + paymentId + ", customerId=" + customerId + ", staffId=" + staffId + ", rentalId="
+		return "Payment [paymentId=" + paymentId + ", customerId=" + customerId + ", rentalId="
 				+ rentalId + ", amount=" + amount + ", paymentDate=" + paymentDate + ", lastUpdate=" + lastUpdate + "]";
 	}
 	

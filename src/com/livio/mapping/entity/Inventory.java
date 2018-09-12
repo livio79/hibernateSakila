@@ -18,7 +18,7 @@ public class Inventory {
 	
 	
 	
-	//************************************************************Film
+	//FILM
 	
 //		@Column(name="film_id")
 //		private int filmId;
@@ -37,14 +37,15 @@ public class Inventory {
 		}
 	 
 
-		//************************************************************Film
+		 
 	
-		//************************************************************Store
+		//STORE
 
 //	@Column(name="store_id")
 //	private int storeId;
 		
 		@ManyToOne 
+		@JoinColumn(name="store_id")
 		private Store store;
 		
 		public Store getStore() {
