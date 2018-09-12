@@ -18,7 +18,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration; 
 
 
-public class StaffPayment {
+public class CustomerPayment {
 
 	public static void main(String[] args) {
 
@@ -38,7 +38,6 @@ public class StaffPayment {
 				.addAnnotatedClass(Rental.class)
 				.addAnnotatedClass(Staff.class)
 				.addAnnotatedClass(Store.class)
-				.addAnnotatedClass(Customer.class)
 				.buildSessionFactory();
 		
 		// create session
@@ -49,19 +48,28 @@ public class StaffPayment {
  
 			session.beginTransaction();
 			
- 			 Staff staff = new Staff("Paul2", "Lulu", "email", (byte)1,"username", "password");
-			 Store store = session.get(Store.class, 1);
-			 Address address = session.get(Address.class, 1);
-			 
-			 staff.setStore(store);
-			 staff.setAddress(address);
-			 
 			 LocalDateTime date = LocalDateTime.of(2011, 06, 20, 10, 10, 10);
-//			 Payment payment = new Payment((short)1, 2, 2.0, date);
+			 Staff staff = session.get(Staff.class, 1);
+			 Rental rental = session.get(Rental.class, 1);
+			 
 //			 
-//			 staff.addPayment(payment);
+//			 Payment payment = new Payment( 1, 2.0, date);
+//			 payment.setStaff(staff);
 //			 
-// 			 session.save(staff);
+//			 
+//			 
+//			 Store store = session.get(Store.class, 1);
+//			 Address address = session.get(Address.class, 1);
+//			 
+//			 Customer customer = new Customer("Rental", "lastName", "email",(byte) 1, date);
+//			 customer.setStore(store);
+//			 customer.setAddress(address);
+//			 
+//			 customer.addPayment(payment);
+//			 
+//			 
+//			  
+// 			 session.save(customer);
 // 			 session.save(payment);
 			
 		 

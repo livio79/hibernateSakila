@@ -1,6 +1,9 @@
 package com.livio.mapping.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -36,10 +39,7 @@ public class Rental {
 	}
 	
 	
-	//******************************************************Inventory
 
-	
-	
 
 //	@Column(name="customer_id")
 //	private short customerId;
@@ -81,6 +81,21 @@ public class Rental {
 	@CreationTimestamp
 	@Column(name="last_update")
 	private LocalDateTime lastUpdate;
+	
+	
+	@OneToMany(mappedBy="rental")
+	private List<Payment> payments = new ArrayList<>();
+	
+	public void addPayment(Payment payment) {
+		payments.add(payment);
+		payment.setRental(this);
+	}
+	
+	public void removePayment(Payment payment) {
+		payments.remove(payment);
+		payment.setRental(null);
+	}
+	
 	
 	public Rental() {}
 

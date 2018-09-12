@@ -18,7 +18,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration; 
 
 
-public class StaffPayment {
+public class PaymentRental {
 
 	public static void main(String[] args) {
 
@@ -43,26 +43,32 @@ public class StaffPayment {
 		
 		// create session
 		Session session = factory.getCurrentSession(); 
-		
+		LocalDateTime date = LocalDateTime.of(2011, 06, 20, 10, 10, 10);
 		  
 		try {		
  
 			session.beginTransaction();
 			
- 			 Staff staff = new Staff("Paul2", "Lulu", "email", (byte)1,"username", "password");
-			 Store store = session.get(Store.class, 1);
-			 Address address = session.get(Address.class, 1);
+ 			 
+			 Inventory inventory = session.get(Inventory.class, 1);
+			 Customer customer = session.get(Customer.class, 1);
+			 Staff staff = session.get(Staff.class, 1);
 			 
-			 staff.setStore(store);
-			 staff.setAddress(address);
+			 Rental rental = new Rental(date, date);
+			 rental.setInventory(inventory);
+			 rental.setCustomer(customer);
+			 rental.setStaff(staff);
 			 
-			 LocalDateTime date = LocalDateTime.of(2011, 06, 20, 10, 10, 10);
-//			 Payment payment = new Payment((short)1, 2, 2.0, date);
-//			 
-//			 staff.addPayment(payment);
-//			 
-// 			 session.save(staff);
-// 			 session.save(payment);
+			 
+			 Payment payment = new Payment(2.0, date);
+			 payment.setStaff(staff);
+			 payment.setCustomer(customer);
+			 
+			 rental.addPayment(payment);
+
+			 session.save(rental);
+			 session.save(rental);
+			 
 			
 		 
 			session.getTransaction().commit();

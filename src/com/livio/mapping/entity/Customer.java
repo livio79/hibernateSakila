@@ -34,7 +34,6 @@ public class Customer {
 	}
 	
 	
-	
 
 	@Column(name="first_name")
 	private String firstName;
@@ -85,6 +84,21 @@ public class Customer {
 		rentals.remove(rental);
 		rental.setCustomer(null);
 	}
+	
+	//PAYMENT
+	@OneToMany(mappedBy="customer")
+	private List<Payment> payments = new ArrayList<>();
+	
+	public void addPayment(Payment payment) {
+		payments.add(payment);
+		payment.setCustomer(this);
+	}
+	
+	public void removePayment(Payment payment) {
+		payments.remove(payment);
+		payment.setCustomer(null);
+	}
+	
 	
 	public Customer() {}
 

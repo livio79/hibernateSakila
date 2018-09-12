@@ -15,12 +15,24 @@ public class Payment {
 	@Column(name="payment_id")
 	private int paymentId;
 	
-	@Column(name="customer_id")
-	private short customerId;
+//	@Column(name="customer_id")
+//	private short customerId;
 	
-//	@Column(name="staff_id")
-//	private byte staffId;
+	@ManyToOne
+	@JoinColumn(name="customer_id")
+	private Customer customer;
 	
+	
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+	
+	//	@Column(name="staff_id")
+	//	private byte staffId;
 	@ManyToOne
 	@JoinColumn(name="staff_id")
 	private Staff staff;
@@ -34,9 +46,22 @@ public class Payment {
 		this.staff = staff;
 	}
 
-	@Column(name="rental_id")
-	private int rentalId;
+//	@Column(name="rental_id")
+//	private int rentalId;
 	
+	@ManyToOne
+	@JoinColumn(name="rental_id")
+	private Rental rental;
+	
+	
+	public Rental getRental() {
+		return rental;
+	}
+
+	public void setRental(Rental rental) {
+		this.rental = rental;
+	}
+
 	@Column(name="amount")
 	private double amount;
 	
@@ -50,10 +75,8 @@ public class Payment {
 	
 	public Payment() {}
 
-	public Payment(short customerId, int rentalId, double amount, LocalDateTime paymentDate) {
+	public Payment(double amount, LocalDateTime paymentDate) {
 		super();
-		this.customerId = customerId;
-		this.rentalId = rentalId;
 		this.amount = amount;
 		this.paymentDate = paymentDate;
 	}
@@ -64,22 +87,6 @@ public class Payment {
 
 	public void setPaymentId(int paymentId) {
 		this.paymentId = paymentId;
-	}
-
-	public short getCustomerId() {
-		return customerId;
-	}
-
-	public void setCustomerId(short customerId) {
-		this.customerId = customerId;
-	}
-
-	public int getRentalId() {
-		return rentalId;
-	}
-
-	public void setRentalId(int rentalId) {
-		this.rentalId = rentalId;
 	}
 
 	public double getAmount() {
@@ -108,8 +115,7 @@ public class Payment {
 
 	@Override
 	public String toString() {
-		return "Payment [paymentId=" + paymentId + ", customerId=" + customerId + ", rentalId="
-				+ rentalId + ", amount=" + amount + ", paymentDate=" + paymentDate + ", lastUpdate=" + lastUpdate + "]";
+		return "Payment [paymentId=" + paymentId + ", amount=" + amount + ", paymentDate=" + paymentDate + ", lastUpdate=" + lastUpdate + "]";
 	}
 	
 	
