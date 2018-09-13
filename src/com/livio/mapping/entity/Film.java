@@ -27,8 +27,28 @@ public class Film {
 	@Column(name="release_year")
 	private String releaseYear;
 	 
-	@Column(name="language_id")
-	private byte languageId;
+//	@Column(name="language_id")
+//	private byte languageId;
+	@ManyToOne
+	@JoinColumn(name="language_id")
+	private Language language;
+	
+//	@Column(name="original_language_id")
+//	private byte originalLanguageId;
+	@ManyToOne
+	@JoinColumn(name="original_language_id")
+	private Language originalLanguage;
+	
+	
+	
+
+	public void setOriginalLanguage(Language originalLanguage) {
+		this.originalLanguage = originalLanguage;
+	}
+	
+	public Language getOriginalLanguage() {
+		return this.originalLanguage;
+	}
 
 	@Column(name="rental_duration")
 	private byte rentalDuration;
@@ -123,13 +143,12 @@ public class Film {
 	
 	Film() {}
  
-	public Film(String title, String description, String releaseYear ,byte languageId, byte rentalDuration, Double rental_rate, Short length, Double replacement_cost, String rating,
+	public Film(String title, String description, String releaseYear, byte rentalDuration, Double rental_rate, Short length, Double replacement_cost, String rating,
 			String specialFeatures) {
 		super();
 		this.title = title;
 		this.description = description;
 		this.releaseYear = releaseYear; 
-		this.languageId = languageId;
 		this.rentalDuration = rentalDuration;
 		this.rental_rate = rental_rate;
 		this.length = length;
@@ -168,12 +187,12 @@ public class Film {
 		this.releaseYear = releaseYear;
 	}
 
-	public byte getLanguage() {
-		return languageId;
+	public Language getLanguage() {
+		return language;
 	}
 
-	public void setLanguage(byte languageId) {
-		this.languageId = languageId;
+	public void setLanguage(Language language) {
+		this.language = language;
 	}
 
 	public byte getRentalDuration() {
@@ -242,7 +261,7 @@ public class Film {
 	@Override
 	public String toString() {
 		return "Film [filmId=" + filmId + ", title=" + title + ", description=" + description + ", releaseYear="
-				+ releaseYear + ", languageId=" + languageId + ", originalLanguageId=" 	+ ", rentalDuration=" + rentalDuration + ", rental_rate=" + rental_rate + ", length=" + length
+				+ releaseYear + ", languageId=" + language + ", originalLanguageId=" 	+ originalLanguage +  ", rentalDuration=" + rentalDuration + ", rental_rate=" + rental_rate + ", length=" + length
 				+ ", replacement_cost=" + replacement_cost + ", rating=" + rating + ", specialFeatures="
 				+ specialFeatures + ", lastUpdate=" + lastUpdate + "]";
 	}

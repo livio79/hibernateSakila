@@ -34,22 +34,30 @@ public class FilmLanguage {
 				.addAnnotatedClass(Rental.class)
 				.addAnnotatedClass(Staff.class)
 				.addAnnotatedClass(Store.class)
-				.addAnnotatedClass(Customer.class)
 				.buildSessionFactory();
 		
 		// create session
 		Session session = factory.getCurrentSession();
-//		Film film = new Film("Prova1", "Language", "2010" , (byte) 1, (byte)2, 2.4, (short) 1, 2.0, "PG", "Trailers");
-//		Language l = new Language ("Macedone");
-		 
-		try {		
+		Film film = new Film("Prova1", "Language", "2010" , (byte)2, 2.4, (short) 1, 2.0, "PG", "Trailers");
 
-			
+		 
+		try {	
 			session.beginTransaction();
-		Film film = session.get(Film.class, 2);
-		
-		System.out.println("FILM " + film);
+			Language language = session.get(Language.class, 1);
+			Language orLanguage = session.get(Language.class,2);
+			
+			language.addFilm(film);
+			orLanguage.addOriginalFilm(film);
+			
+			
+			
+			session.save(language);
+			session.save(orLanguage);
+			session.save(film);
 			 
+			
+			
+			
 		 
 			session.getTransaction().commit();
 			

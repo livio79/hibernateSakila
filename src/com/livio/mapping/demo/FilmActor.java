@@ -40,34 +40,34 @@ public class FilmActor {
 				.buildSessionFactory();
 		
 		// create session
-		Session session = factory.getCurrentSession();
-		Film film = new Film("Actor4", "Language", "2010",(byte)2, (byte)2, 2.4, (short) 1, 2.0, "PG", "Trailers");
-		Actor a = new Actor("Fabio2", "Louis2");
-		
-		 
-		try {		
- 
-			session.beginTransaction();
-			film.addActor(a);
-			//a.addFilm(film);
-			
-			session.save(film);
-			 session.save(a);
-			 
-			
-			
-			
-			
-			
-			
-		 
-			session.getTransaction().commit();
-			
-			System.out.println("Done!");
-		}
-		finally {
-			factory.close();
-		}
+//		Session session = factory.getCurrentSession();
+//		Film film = new Film("Actor4", "Language", "2010",(byte)2, (byte)2, 2.4, (short) 1, 2.0, "PG", "Trailers");
+//		Actor a = new Actor("Fabio2", "Louis2");
+//		
+//		 
+//		try {		
+// 
+//			session.beginTransaction();
+//			film.addActor(a);
+//			//a.addFilm(film);
+//			
+//			session.save(film);
+//			 session.save(a);
+//			 
+//			
+//			
+//			
+//			
+//			
+//			
+//		 
+//			session.getTransaction().commit();
+//			
+//			System.out.println("Done!");
+//		}
+//		finally {
+//			factory.close();
+//		}
 	}
 
 }

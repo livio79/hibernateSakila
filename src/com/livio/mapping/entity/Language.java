@@ -25,6 +25,32 @@ public class Language {
 	@UpdateTimestamp
 	private LocalDateTime lastUpdate;
 	
+	@OneToMany(mappedBy="language")
+	private List<Film> films = new ArrayList<>();
+	
+	public void addFilm(Film film) {
+		films.add(film);
+		film.setLanguage(this);
+	}
+	
+	public void removeFilm(Film film) {
+		films.remove(film);
+		film.setLanguage(null);
+	}
+	
+	
+	@OneToMany(mappedBy="originalLanguage")
+	private List<Film> originalFilms = new ArrayList<>();
+	
+	public void addOriginalFilm(Film film) {
+		originalFilms.add(film);
+		film.setOriginalLanguage(this);
+	}
+	
+	public void removeOriginalFilm(Film film) {
+		originalFilms.remove(film);
+		film.setOriginalLanguage(null);
+	}
 	
 	
 	public Language() {}
