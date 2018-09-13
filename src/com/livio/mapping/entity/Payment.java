@@ -1,5 +1,6 @@
 package com.livio.mapping.entity;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import javax.persistence.*;
@@ -8,63 +9,27 @@ import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name="payment")
-public class Payment {
+public class Payment  implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="payment_id")
 	private int paymentId;
-	
-//	@Column(name="customer_id")
-//	private short customerId;
-	
+
 	@ManyToOne
 	@JoinColumn(name="customer_id")
 	private Customer customer;
 	
-	
-	public Customer getCustomer() {
-		return customer;
-	}
-
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
-	
-	//	@Column(name="staff_id")
-	//	private byte staffId;
 	@ManyToOne
 	@JoinColumn(name="staff_id")
 	private Staff staff;
-	
-	
-	public Staff getStaff() {
-		return staff;
-	}
 
-	public void setStaff(Staff staff) {
-		this.staff = staff;
-	}
-
-//	@Column(name="rental_id")
-//	private int rentalId;
-	
 	@ManyToOne
 	@JoinColumn(name="rental_id")
 	private Rental rental;
 	
-	
-	public Rental getRental() {
-		return rental;
-	}
-
-	public void setRental(Rental rental) {
-		this.rental = rental;
-	}
-
 	@Column(name="amount")
 	private double amount;
-	
 	
 	@Column(name="payment_date")
 	private LocalDateTime paymentDate;
@@ -72,6 +37,8 @@ public class Payment {
 	@CreationTimestamp
 	@Column(name="last_update")
 	private LocalDateTime lastUpdate;
+	
+	
 	
 	public Payment() {}
 
@@ -81,6 +48,7 @@ public class Payment {
 		this.paymentDate = paymentDate;
 	}
 
+	
 	public int getPaymentId() {
 		return paymentId;
 	}
@@ -88,6 +56,31 @@ public class Payment {
 	public void setPaymentId(int paymentId) {
 		this.paymentId = paymentId;
 	}
+	
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+	
+	public Staff getStaff() {
+		return staff;
+	}
+
+	public void setStaff(Staff staff) {
+		this.staff = staff;
+	}
+	
+	public Rental getRental() {
+		return rental;
+	}
+
+	public void setRental(Rental rental) {
+		this.rental = rental;
+	}
+	
 
 	public double getAmount() {
 		return amount;

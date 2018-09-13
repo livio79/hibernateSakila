@@ -1,5 +1,6 @@
 package com.livio.mapping.entity;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,7 +12,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name="film")
-public class Film {
+public class Film  implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -27,28 +28,13 @@ public class Film {
 	@Column(name="release_year")
 	private String releaseYear;
 	 
-//	@Column(name="language_id")
-//	private byte languageId;
 	@ManyToOne
 	@JoinColumn(name="language_id")
 	private Language language;
 	
-//	@Column(name="original_language_id")
-//	private byte originalLanguageId;
 	@ManyToOne
 	@JoinColumn(name="original_language_id")
 	private Language originalLanguage;
-	
-	
-	
-
-	public void setOriginalLanguage(Language originalLanguage) {
-		this.originalLanguage = originalLanguage;
-	}
-	
-	public Language getOriginalLanguage() {
-		return this.originalLanguage;
-	}
 
 	@Column(name="rental_duration")
 	private byte rentalDuration;
@@ -93,7 +79,7 @@ public class Film {
 	
 	public void removeActor(Actor actor) {
 		actors.remove(actor);
-		actor.getFilms().add(null); //remove(this
+		actor.getFilms().add(null);
 	}
 	
 	public List<Actor> getActors() {
@@ -123,22 +109,9 @@ public class Film {
 	}
 	// *******************************************************************************************CATEGORY
 	
-	//************************************************************Inventory
 		 
-		@OneToMany(mappedBy="film")
-		List<Inventory> inventories = new ArrayList<>();
-		
-		public void addInventory(Inventory inventory) {
-			inventories.add(inventory);
-			inventory.setFilm(this);
-			
-		}
-		public void removeInventory(Inventory inventory) {
-			inventories.remove(inventory);
-			inventory.setFilm(null);
-		}
-		 
-		//************************************************************Inventory	
+	@OneToMany(mappedBy="film")
+	List<Inventory> inventories = new ArrayList<>();
 	
 	
 	Film() {}
@@ -193,6 +166,14 @@ public class Film {
 
 	public void setLanguage(Language language) {
 		this.language = language;
+	}
+	
+	public void setOriginalLanguage(Language originalLanguage) {
+		this.originalLanguage = originalLanguage;
+	}
+	
+	public Language getOriginalLanguage() {
+		return this.originalLanguage;
 	}
 
 	public byte getRentalDuration() {
@@ -255,8 +236,18 @@ public class Film {
 	public void setLastUpdate(LocalDateTime lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
+	
+	public void addInventory(Inventory inventory) {
+		inventories.add(inventory);
+		inventory.setFilm(this);
+		
+	}
+	public void removeInventory(Inventory inventory) {
+		inventories.remove(inventory);
+		inventory.setFilm(null);
+	}
 
- 
+
 
 	@Override
 	public String toString() {

@@ -1,14 +1,17 @@
 package com.livio.mapping.entity;
+//Dalla tabella originale ho cancellato la colonna Location
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.*; 
 import javax.persistence.*;
 
 import org.hibernate.annotations.UpdateTimestamp;
-//Dalla tabella originale ho cancellato la colonna Location
+
+
 @Entity
 @Table(name="address")
-public class Address {
+public class Address  implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -23,48 +26,13 @@ public class Address {
 	
 	@Column(name="district")
 	private String district;
-	//************************************************************City
-	//ManyToOne - Costruttore: elimina cityId - Country city getter setter
-//	@Column(name="city_id")
-//	private short cityId;
 	
 	@ManyToOne 
 	@JoinColumn(name = "city_id")
 	private City city;
 	
-	
-	public City getCity() {
-		return city;
-	}
-
-
-	public void setCity(City city) {
-		this.city = city;
-	}
-	
-	//************************************************************City
-	
-	//************************************************************Store
-
 	@OneToMany(mappedBy="address")
 	List<Store> stores = new ArrayList<>();
-
-	public void addAStore(Store store){
-		stores.add(store);
-		store.setAddress(this);
-	}
-	
-	public void removeStore(Store store) {
-		stores.remove(store);
-		store.setAddress(null);
-	}
-	
-	
-	
-	
-	//************************************************************Store
-
-	
 
 	@Column(name="postal_code")
 	private String postalCode;
@@ -77,33 +45,11 @@ public class Address {
 	private LocalDateTime lastUpdate;
 	
 	
-	
 	@OneToMany(mappedBy="address")
 	private List<Customer> customers = new ArrayList<>();
 	
-	public void addCustomer(Customer customer) {
-		customers.add(customer);
-		customer.setAddress(this);
-	}
-	
-	public void removeCustomer(Customer customer) {
-		customers.remove(customer);
-		customer.setAddress(null);
-	}
-	
-	
 	@OneToMany(mappedBy="address")
 	private List<Staff> staffs = new ArrayList<>();
-	
-	public void addStaff(Staff staff) {
-		staffs.add(staff);
-		staff.setAddress(this);
-	}
-	
-	public void removeStaff(Staff staff) {
-		staffs.remove(staff);
-		staff.setAddress(null);
-	}
 	
 	
 	public Address() {}
@@ -159,16 +105,6 @@ public class Address {
 	}
 
 
-//	public short getCityId() {
-//		return cityId;
-//	}
-//
-//
-//	public void setCityId(short cityId) {
-//		this.cityId = cityId;
-//	}
-
-
 	public String getPostalCode() {
 		return postalCode;
 	}
@@ -198,5 +134,43 @@ public class Address {
 		this.lastUpdate = lastUpdate;
 	}
 	
+	public City getCity() {
+		return city;
+	}
+
+
+	public void setCity(City city) {
+		this.city = city;
+	}
+	
+	public void addCustomer(Customer customer) {
+		customers.add(customer);
+		customer.setAddress(this);
+	}
+	
+	public void removeCustomer(Customer customer) {
+		customers.remove(customer);
+		customer.setAddress(null);
+	}
+	
+	public void addStaff(Staff staff) {
+		staffs.add(staff);
+		staff.setAddress(this);
+	}
+	
+	public void removeStaff(Staff staff) {
+		staffs.remove(staff);
+		staff.setAddress(null);
+	}
+	
+	public void addAStore(Store store){
+		stores.add(store);
+		store.setAddress(this);
+	}
+	
+	public void removeStore(Store store) {
+		stores.remove(store);
+		store.setAddress(null);
+	}
 	
 }

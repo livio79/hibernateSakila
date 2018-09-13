@@ -1,5 +1,6 @@
 package com.livio.mapping.entity;
 
+import java.io.Serializable;
 import java.time.LocalDateTime; 
 import java.util.*;
 
@@ -9,61 +10,55 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name="inventory")
-public class Inventory {
+public class Inventory  implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="inventory_id")
 	private int inventoryId;
 	
+	@ManyToOne 
+	@JoinColumn(name = "film_id")
+	private Film film;
 	
-	
-	//FILM
-	
-//		@Column(name="film_id")
-//		private int filmId;
-		
-		@ManyToOne 
-		@JoinColumn(name = "film_id")
-		private Film film;
-		
-		public Film getFilm() {
-			return film;
-		}
-
-
-		public void setFilm(Film film) {
-			this.film = film;
-		}
-	 
-
-		 
-	
-		//STORE
-
-//	@Column(name="store_id")
-//	private int storeId;
-		
-		@ManyToOne 
-		@JoinColumn(name="store_id")
-		private Store store;
-		
-		public Store getStore() {
-			return store;
-		}
-
-
-		public void setStore(Store store) {
-			this.store = store;
-		}
-		
-		
-	//************************************************************Store
-		
-	//************************************************************Rental
+	@ManyToOne 
+	@JoinColumn(name="store_id")
+	private Store store;
 	
 	@OneToMany(mappedBy="inventory")
 	List<Rental> rentals = new ArrayList<>();
+	
+	@Column(name="last_update")
+	@UpdateTimestamp
+	private LocalDateTime lastUpdate;
+	
+	
+	public Inventory() {}
+ 
+	public int getInventoryId() {
+		return inventoryId;
+	}
+
+	public void setInventoryId(int inventoryId) {
+		this.inventoryId = inventoryId;
+	} 
+
+	public Film getFilm() {
+		return film;
+	}
+
+	public void setFilm(Film film) {
+		this.film = film;
+	}
+
+	public Store getStore() {
+		return store;
+	}
+
+
+	public void setStore(Store store) {
+		this.store = store;
+	}
 	
 	public void addRental(Rental rental) {
 		rentals.add(rental);
@@ -74,37 +69,10 @@ public class Inventory {
 		rentals.remove(rental);
 		rental.setInventory(null);
 	}
-	
-		
-		
-	//************************************************************Rental
-
-	
-	
-
-
-	@Column(name="last_update")
-	@UpdateTimestamp
-	private LocalDateTime lastUpdate;
-	
-	
-	public Inventory() {}
-
- 
-	public int getInventoryId() {
-		return inventoryId;
-	}
-
-
-	public void setInventoryId(int inventoryId) {
-		this.inventoryId = inventoryId;
-	} 
-
 
 	public LocalDateTime getLastUpdate() {
 		return lastUpdate;
 	}
-
 
 	public void setLastUpdate(LocalDateTime lastUpdate) {
 		this.lastUpdate = lastUpdate;

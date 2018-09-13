@@ -1,4 +1,4 @@
-package com.livio.mapping.demo;
+package com.livio.mapping.test;
 
 import java.time.LocalDateTime;
 
@@ -18,7 +18,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration; 
 
 
-public class CustomerPayment {
+public class StaffStore {
 
 	public static void main(String[] args) {
 
@@ -38,39 +38,25 @@ public class CustomerPayment {
 				.addAnnotatedClass(Rental.class)
 				.addAnnotatedClass(Staff.class)
 				.addAnnotatedClass(Store.class)
+				.addAnnotatedClass(Customer.class)
 				.buildSessionFactory();
 		
 		// create session
 		Session session = factory.getCurrentSession(); 
 		
-		  
+		 
+ 		
+		
 		try {		
  
 			session.beginTransaction();
 			
-			 LocalDateTime date = LocalDateTime.of(2011, 06, 20, 10, 10, 10);
-			 Staff staff = session.get(Staff.class, 1);
-			 Rental rental = session.get(Rental.class, 1);
+			// Staff staff = new Staff("Paul2", "Lulu", (short)1, "email", (byte)1,"username", "password");
+			 Store store = session.get(Store.class, 1);
 			 
-//			 
-//			 Payment payment = new Payment( 1, 2.0, date);
-//			 payment.setStaff(staff);
-//			 
-//			 
-//			 
-//			 Store store = session.get(Store.class, 1);
-//			 Address address = session.get(Address.class, 1);
-//			 
-//			 Customer customer = new Customer("Rental", "lastName", "email",(byte) 1, date);
-//			 customer.setStore(store);
-//			 customer.setAddress(address);
-//			 
-//			 customer.addPayment(payment);
-//			 
-//			 
-//			  
-// 			 session.save(customer);
-// 			 session.save(payment);
+//			 store.addStaff(staff);
+//			 session.save(staff);
+			
 			
 		 
 			session.getTransaction().commit();

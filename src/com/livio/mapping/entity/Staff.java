@@ -1,6 +1,7 @@
 package com.livio.mapping.entity;
 
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -10,7 +11,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name="staff")
-public class Staff {
+public class Staff  implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -23,27 +24,10 @@ public class Staff {
 	@Column(name="last_name")
 	private String lastName;
 	
-	
-	
-//	@Column(name="address_id")
-//	private short addressId;
-	
 	@ManyToOne
 	@JoinColumn(name="address_id")
 	private Address address;
 	
-
-	
-	public Address getAddress() {
-		return address;
-	}
-
-
-	public void setAddress(Address address) {
-		this.address = address;
-	}
-
-
 	@Column(name="email")
 	private String email;
 	
@@ -59,53 +43,16 @@ public class Staff {
 	@CreationTimestamp
 	@Column(name="last_update")
 	private LocalDateTime lastUpdate;
-	//************************************************************ Store 
-
-//	@Column(name="store_id")
-//	private byte storeId;
 	
 	@ManyToOne
 	@JoinColumn(name="store_id")
 	private Store store;
 	
-	public Store getStore() {
-		return store;
-	}
-
-
-	public void setStore(Store store) {
-		this.store = store;
-	}
-
-	
-	//************************************************************ Store 
-	
 	@OneToMany(mappedBy="staff")
 	private List<Payment> payments = new ArrayList<>();
 	
-	public void addPayment(Payment payment) {
-		payments.add(payment);
-		payment.setStaff(this);
-	}
-	
-	public void removePayment(Payment payment) {
-		payments.remove(payment);
-		payment.setStaff(null);
-	}
-	
-	
 	@OneToMany(mappedBy="staff")
 	private List<Rental> rentals = new ArrayList<>();
-	
-	public void addRental(Rental rental) {
-		rentals.add(rental);
-		rental.setStaff(this);
-	}
-	
-	public void removeRental(Rental rental) {
-		rentals.remove(rental);
-		rental.setStaff(null);
-	}
 	
 
 	public Staff() {}
@@ -201,13 +148,41 @@ public class Staff {
 	public void setLastUpdate(LocalDateTime lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
+	
+	public Address getAddress() {
+		return address;
+	}
 
-
-	@Override
-	public String toString() {
-		return "Staff [staffId=" + staffId + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + " active=" + active + ", username="
-				+ username + ", password=" + password + ", lastUpdate=" + lastUpdate + "]";
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 	
+	public Store getStore() {
+			return store;
+	}
+
+	public void setStore(Store store) {
+		this.store = store;
+	}
 	
+	public void addPayment(Payment payment) {
+		payments.add(payment);
+		payment.setStaff(this);
+	}
+	
+	public void removePayment(Payment payment) {
+		payments.remove(payment);
+		payment.setStaff(null);
+	}
+	
+	public void addRental(Rental rental) {
+		rentals.add(rental);
+		rental.setStaff(this);
+	}
+	
+	public void removeRental(Rental rental) {
+		rentals.remove(rental);
+		rental.setStaff(null);
+	}
+
 }

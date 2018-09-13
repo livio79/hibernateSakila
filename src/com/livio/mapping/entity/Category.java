@@ -1,5 +1,6 @@
 package com.livio.mapping.entity;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.*;
 import javax.persistence.*;
@@ -7,7 +8,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity 
 @Table(name="category")
-public class Category {
+public class Category  implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,12 +38,6 @@ public class Category {
 	}
 	
 	
-	// ********************************************************************************FILM
-	
-	
-	
-	
-	
 	
 	
 	
@@ -62,11 +57,6 @@ public class Category {
 		this.name = name;
 	}
 
-	@Override
-	public String toString() {
-		return "Language [languageId=" + categoryId + ", name=" + name + ", lastUpdate=" + lastUpdate + "]";
-	}
-
 	public int getCategoryId() {
 		return categoryId;
 	}
@@ -83,4 +73,8 @@ public class Category {
 		this.lastUpdate = lastUpdate;
 	}
 	
+	@Override
+	public String toString() {
+		return "Language [languageId=" + categoryId + ", name=" + name + ", lastUpdate=" + lastUpdate + "]";
+	}
 }

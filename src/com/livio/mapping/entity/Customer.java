@@ -1,5 +1,6 @@
 package com.livio.mapping.entity;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,30 +11,16 @@ import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name="customer")
-public class Customer {
+public class Customer  implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="customer_id")
 	private int customerId;
-	
-//	@Column(name="store_id")
-//	private byte storeId;
-	
+
 	@ManyToOne
 	@JoinColumn(name="store_id")
 	private Store store;
-	
-	
-	public Store getStore() {
-		return store;
-	}
-
-	public void setStore(Store store) {
-		this.store = store;
-	}
-	
-	
 
 	@Column(name="first_name")
 	private String firstName;
@@ -44,23 +31,10 @@ public class Customer {
 	@Column(name="email")
 	private String email;
 	
-	
-	//ManyToOne ADDRESS
-//	@Column(name="address_id")
-//	private short addressId;
-	
 	@ManyToOne
 	@JoinColumn(name="address_id")
 	private Address address;
 	
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
-	}
-
 	@Column(name="active")
 	private byte active;
 	
@@ -71,33 +45,11 @@ public class Customer {
 	@Column(name="last_update")
 	private LocalDateTime lastUpdate;
 	
-	
 	@OneToMany(mappedBy="customer")
 	private List<Rental> rentals = new ArrayList<>();
 	
-	public void addRental(Rental rental) {
-		rentals.add(rental);
-		rental.setCustomer(this);
-	}
-	
-	public void removeRental(Rental rental) {
-		rentals.remove(rental);
-		rental.setCustomer(null);
-	}
-	
-	//PAYMENT
 	@OneToMany(mappedBy="customer")
 	private List<Payment> payments = new ArrayList<>();
-	
-	public void addPayment(Payment payment) {
-		payments.add(payment);
-		payment.setCustomer(this);
-	}
-	
-	public void removePayment(Payment payment) {
-		payments.remove(payment);
-		payment.setCustomer(null);
-	}
 	
 	
 	public Customer() {}
@@ -118,7 +70,14 @@ public class Customer {
 	public void setCustomerId(int customerId) {
 		this.customerId = customerId;
 	}
+	
+	public Store getStore() {
+		return store;
+	}
 
+	public void setStore(Store store) {
+		this.store = store;
+	}
 
 	public String getFirstName() {
 		return firstName;
@@ -142,6 +101,34 @@ public class Customer {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+	
+	public void addRental(Rental rental) {
+		rentals.add(rental);
+		rental.setCustomer(this);
+	}
+	
+	public void removeRental(Rental rental) {
+		rentals.remove(rental);
+		rental.setCustomer(null);
+	}
+	
+	public void addPayment(Payment payment) {
+		payments.add(payment);
+		payment.setCustomer(this);
+	}
+	
+	public void removePayment(Payment payment) {
+		payments.remove(payment);
+		payment.setCustomer(null);
 	}
 
 	public byte getActive() {

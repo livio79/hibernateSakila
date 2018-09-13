@@ -1,4 +1,4 @@
-package com.livio.mapping.demo;
+package com.livio.mapping.test;
 
 import java.time.LocalDateTime;
 
@@ -18,10 +18,11 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration; 
 
 
-public class CityCountry {
+public class CustomerRental {
 
 	public static void main(String[] args) {
 
+		// create session factory
 		SessionFactory factory = new Configuration()
 				.configure("hibernate.cfg.xml")
 				.addAnnotatedClass(Actor.class)
@@ -37,27 +38,37 @@ public class CityCountry {
 				.addAnnotatedClass(Rental.class)
 				.addAnnotatedClass(Staff.class)
 				.addAnnotatedClass(Store.class)
-				.addAnnotatedClass(Customer.class)
 				.buildSessionFactory();
 		
 		// create session
 		Session session = factory.getCurrentSession(); 
 		
-//  		City city = new City("Aplerbeck");
-// 		Country country = new Country("Germania");
-		
-		City city = null;
+		  
 		try {		
  
 			session.beginTransaction();
+			
+			 LocalDateTime date = LocalDateTime.of(2011, 06, 20, 10, 10, 10);
+			 Inventory inventory = session.get(Inventory.class, 1);
+			 Staff staff = session.get(Staff.class, 1);
+			 
+			 Rental rental = new Rental(date, date);
+			 rental.setInventory(inventory);
+			 rental.setStaff(staff);
+			 
+			 Store store = session.get(Store.class, 1);
+			 Address address = session.get(Address.class, 1);
+			 
+			 Customer customer = new Customer("Rental", "lastName", "email",(byte) 1, date);
+			 customer.setStore(store);
+			 customer.setAddress(address);
+			 
+			 customer.addRental(rental);
+			 
+			 
 			  
-			city = session.get(City.class, 1);
-			
-			System.out.println("NOME DELLA CITTA " + city.getCity()  + " Id " + city.getCity_id());
-			
-			
-			
-			
+ 			 session.save(customer);
+ 			 session.save(rental);
 			
 		 
 			session.getTransaction().commit();

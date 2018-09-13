@@ -1,4 +1,4 @@
-package com.livio.mapping.demo;
+package com.livio.mapping.test;
 
 import java.time.LocalDateTime;
 
@@ -10,21 +10,15 @@ import com.livio.mapping.entity.*;
 
 import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration; 
 
-
-public class AddressCity {
+public class FilmLanguage {
 
 	public static void main(String[] args) {
 
-		// create session factory
 		SessionFactory factory = new Configuration()
 				.configure("hibernate.cfg.xml")
 				.addAnnotatedClass(Actor.class)
@@ -40,36 +34,29 @@ public class AddressCity {
 				.addAnnotatedClass(Rental.class)
 				.addAnnotatedClass(Staff.class)
 				.addAnnotatedClass(Store.class)
-				.addAnnotatedClass(Customer.class)
 				.buildSessionFactory();
 		
 		// create session
-		Session session = factory.getCurrentSession(); 
-		
-		//Address address = new Address("47 MySakila Drive", "47 MySakila Drive2", "Alberta", (short)300, "PCode", "Phone");
- 		
-		
-		try {		
- 
+		Session session = factory.getCurrentSession();
+		Film film = new Film("Prova2", "Language", "2010" , (byte)2, 2.4, (short) 1, 2.0, "PG", "Trailers");
+
+		 
+		try {	
 			session.beginTransaction();
+			Language language = session.get(Language.class, 1);
+			Language orLanguage = session.get(Language.class,2);
+			
+			language.addFilm(film);
+			orLanguage.addOriginalFilm(film);
 			
 			
-			//Creo city e address - setCountry in city - save
-//			City city = new City("Terni");
-//			Address address = new Address("ViaGino", "ViaTommaso", "bag", "0200", "2033232");
-//			Country country = session.get(Country.class, 1);
-//		    city.setCountry(country);
-//			city.addAddress(address);
-//			session.save(city);
-//			session.save(address);
 			
-			Query q = session.createQuery("SELECT a.firstName FROM Actor a where a.id = 1");
-			
-			List<String> list = q.getResultList();
+			session.save(language);
+			session.save(orLanguage);
+			session.save(film);
+			 
 			
 			
-			for(String a : list)
-				System.out.println("Attore " + a);
 			
 		 
 			session.getTransaction().commit();
@@ -82,5 +69,6 @@ public class AddressCity {
 	}
 
 }
+
 
 

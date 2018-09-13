@@ -1,4 +1,4 @@
-package com.livio.mapping.demo;
+package com.livio.mapping.test;
 
 import java.time.LocalDateTime;
 
@@ -10,15 +10,21 @@ import com.livio.mapping.entity.*;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration; 
 
-public class FilmLanguage {
+
+public class AddressCustomer {
 
 	public static void main(String[] args) {
 
+		// create session factory
 		SessionFactory factory = new Configuration()
 				.configure("hibernate.cfg.xml")
 				.addAnnotatedClass(Actor.class)
@@ -34,30 +40,29 @@ public class FilmLanguage {
 				.addAnnotatedClass(Rental.class)
 				.addAnnotatedClass(Staff.class)
 				.addAnnotatedClass(Store.class)
+				.addAnnotatedClass(Customer.class)
 				.buildSessionFactory();
 		
 		// create session
-		Session session = factory.getCurrentSession();
-		Film film = new Film("Prova1", "Language", "2010" , (byte)2, 2.4, (short) 1, 2.0, "PG", "Trailers");
-
-		 
-		try {	
+		Session session = factory.getCurrentSession(); 
+		
+		Address address = new Address("47 MySakila Drive", "47 MySakila Drive2", "Alberta", "PCode", "Phone");
+  				
+		try {		
+ 
 			session.beginTransaction();
-			Language language = session.get(Language.class, 1);
-			Language orLanguage = session.get(Language.class,2);
 			
-			language.addFilm(film);
-			orLanguage.addOriginalFilm(film);
+			City city = session.get(City.class, 1);
 			
+			address.setCity(city);
 			
+			LocalDateTime date = LocalDateTime.of(2018, 10, 10, 10, 10, 10);
+			Customer customer = new Customer( "First", "lastName", "email",  (byte)1, date);
+
+			address.addCustomer(customer);
 			
-			session.save(language);
-			session.save(orLanguage);
-			session.save(film);
-			 
-			
-			
-			
+			session.save(address);
+			session.save(customer);
 		 
 			session.getTransaction().commit();
 			
@@ -69,6 +74,5 @@ public class FilmLanguage {
 	}
 
 }
-
 
 

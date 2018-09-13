@@ -1,4 +1,4 @@
-package com.livio.mapping.demo;
+package com.livio.mapping.test;
 
 import java.time.LocalDateTime;
 
@@ -17,8 +17,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration; 
 
-
-public class StaffRental {
+public class FilmStore {
 
 	public static void main(String[] args) {
 
@@ -38,37 +37,22 @@ public class StaffRental {
 				.addAnnotatedClass(Rental.class)
 				.addAnnotatedClass(Staff.class)
 				.addAnnotatedClass(Store.class)
+				.addAnnotatedClass(Customer.class)
 				.buildSessionFactory();
 		
 		// create session
-		Session session = factory.getCurrentSession(); 
+		Session session = factory.getCurrentSession();
+		//Film film = new Film("Store3", "Language", "2010",(byte)2, (byte) 1, (byte)2, 2.4, (short) 1, 2.0, "PG", "Trailers");
+		Store store = null;
 		
-		  
+		 
 		try {		
  
-			session.beginTransaction();
+		
 			
- 			 Staff staff = new Staff("Rental", "Lulu", "email", (byte)1,"username", "password");
-			 Store store = session.get(Store.class, 1);
-			 Address address = session.get(Address.class, 1);
-			 
-			 staff.setStore(store);
-			 staff.setAddress(address);
-			 
-			 
-			 LocalDateTime date = LocalDateTime.of(2011, 06, 20, 10, 10, 10);
-			 Inventory inventory = session.get(Inventory.class, 1);
-			 Customer customer  = session.get(Customer.class, 1);
-			 
-			 Rental rental = new Rental(date, date);
-			 rental.setInventory(inventory);
-			 rental.setCustomer(customer);
-			 
-			 
-			 staff.addRental(rental);
-			 
- 			 session.save(staff);
- 			 session.save(rental);
+			
+			
+			
 			
 		 
 			session.getTransaction().commit();
@@ -81,5 +65,6 @@ public class StaffRental {
 	}
 
 }
+
 
 

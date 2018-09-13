@@ -1,5 +1,6 @@
 package com.livio.mapping.entity;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity 
 @Table(name="language")
-public class Language {
+public class Language  implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +29,21 @@ public class Language {
 	@OneToMany(mappedBy="language")
 	private List<Film> films = new ArrayList<>();
 	
+	@OneToMany(mappedBy="originalLanguage")
+	private List<Film> originalFilms = new ArrayList<>();
+	
+	
+	
+
+	public Language() {}
+
+	public Language(String name) {
+		super();
+		this.name = name;
+	}
+	
+	
+	
 	public void addFilm(Film film) {
 		films.add(film);
 		film.setLanguage(this);
@@ -38,10 +54,6 @@ public class Language {
 		film.setLanguage(null);
 	}
 	
-	
-	@OneToMany(mappedBy="originalLanguage")
-	private List<Film> originalFilms = new ArrayList<>();
-	
 	public void addOriginalFilm(Film film) {
 		originalFilms.add(film);
 		film.setOriginalLanguage(this);
@@ -50,14 +62,6 @@ public class Language {
 	public void removeOriginalFilm(Film film) {
 		originalFilms.remove(film);
 		film.setOriginalLanguage(null);
-	}
-	
-	
-	public Language() {}
-
-	public Language(String name) {
-		super();
-		this.name = name;
 	}
 
 	public String getName() {

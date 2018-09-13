@@ -1,4 +1,4 @@
-package com.livio.mapping.demo;
+package com.livio.mapping.test;
 
 import java.time.LocalDateTime;
 
@@ -17,11 +17,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration; 
 
-public class FilmStore {
+
+public class CityCountry {
 
 	public static void main(String[] args) {
 
-		// create session factory
 		SessionFactory factory = new Configuration()
 				.configure("hibernate.cfg.xml")
 				.addAnnotatedClass(Actor.class)
@@ -41,14 +41,19 @@ public class FilmStore {
 				.buildSessionFactory();
 		
 		// create session
-		Session session = factory.getCurrentSession();
-		//Film film = new Film("Store3", "Language", "2010",(byte)2, (byte) 1, (byte)2, 2.4, (short) 1, 2.0, "PG", "Trailers");
-		Store store = null;
+		Session session = factory.getCurrentSession(); 
 		
-		 
+//  		City city = new City("Aplerbeck");
+// 		Country country = new Country("Germania");
+		
+		City city = null;
 		try {		
  
-		
+			session.beginTransaction();
+			  
+			city = session.get(City.class, 1);
+			
+			System.out.println("NOME DELLA CITTA " + city.getCity()  + " Id " + city.getCity_id());
 			
 			
 			
@@ -65,6 +70,5 @@ public class FilmStore {
 	}
 
 }
-
 
 

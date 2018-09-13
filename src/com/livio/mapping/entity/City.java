@@ -1,5 +1,6 @@
 package com.livio.mapping.entity;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +11,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name="city")
-public class City {
+public class City  implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -20,42 +21,12 @@ public class City {
 	@Column(name="city")
 	private String city;
 	
-//	@Column(name="country_id")
-//	private short countryId;
-	
-	//************************************************************Country
-
 	@ManyToOne 
 	@JoinColumn(name = "country_id")
 	private Country country;
 	
-	public Country getCountry() {
-		return country;
-	}
-
-
-	public void setCountry(Country country) {
-		this.country = country;
-	}
-
-	//************************************************************Country
-	
-	//************************************************************Address
-	
-	//OneToMany with Country : addCity and removeCity methods
-		@OneToMany(mappedBy="city")
-		List<Address> addresses = new ArrayList<>();
-		
-		public void addAddress(Address address) {
-			addresses.add(address);
-			address.setCity(this);
-		}
-		
-		public void removeAddress(Address address) {
-			addresses.remove(address);
-			address.setCity(this);
-		}
-		//************************************************************Address
+	@OneToMany(mappedBy="city")
+	List<Address> addresses = new ArrayList<>();
 	
 	@UpdateTimestamp
 	@Column(name="last_update")
@@ -64,14 +35,6 @@ public class City {
 	
 	public City() {}
 
-
-//	public City(String city, short countryId) {
-//		super();
-//		this.city = city;
-//		this.countryId = countryId;
-//	}
-	
-	//(Costrutto whitout countryId)
 	public City(String city) {
 		super();
 		this.city = city;
@@ -97,17 +60,25 @@ public class City {
 		this.city = city;
 	}
 
-
-//	public short getCountryId() {
-//		return countryId;
-//	}
-//
-//
-//	public void setCountryId(short countryId) {
-//		this.countryId = countryId;
-//	}
+	public Country getCountry() {
+		return country;
+	}
 
 
+	public void setCountry(Country country) {
+		this.country = country;
+	}
+	
+	public void addAddress(Address address) {
+		addresses.add(address);
+		address.setCity(this);
+	}
+	
+	public void removeAddress(Address address) {
+		addresses.remove(address);
+		address.setCity(this);
+	}
+	
 	public LocalDateTime getLastUpdate() {
 		return lastUpdate;
 	}
@@ -116,6 +87,4 @@ public class City {
 	public void setLastUpdate(LocalDateTime lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
-	
-	
 }

@@ -2,6 +2,7 @@ package com.livio.mapping.entity;
 
 
  
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -22,7 +23,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name="actor")
-public class Actor {
+public class Actor implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -40,7 +41,6 @@ public class Actor {
 	private LocalDateTime lastUpdate;
 	
 	
-	// ********************************************************************************FILM
 	@ManyToMany(fetch=FetchType.LAZY, mappedBy="actors",
 		    cascade= {CascadeType.PERSIST, CascadeType.MERGE,
 		     CascadeType.DETACH, CascadeType.REFRESH})

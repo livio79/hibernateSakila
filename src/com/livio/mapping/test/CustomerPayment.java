@@ -1,4 +1,4 @@
-package com.livio.mapping.demo;
+package com.livio.mapping.test;
 
 import java.time.LocalDateTime;
 
@@ -17,10 +17,12 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration; 
 
-public class FilmActor {
+
+public class CustomerPayment {
 
 	public static void main(String[] args) {
 
+		// create session factory
 		SessionFactory factory = new Configuration()
 				.configure("hibernate.cfg.xml")
 				.addAnnotatedClass(Actor.class)
@@ -36,41 +38,50 @@ public class FilmActor {
 				.addAnnotatedClass(Rental.class)
 				.addAnnotatedClass(Staff.class)
 				.addAnnotatedClass(Store.class)
-				.addAnnotatedClass(Customer.class)
 				.buildSessionFactory();
 		
 		// create session
-//		Session session = factory.getCurrentSession();
-//		Film film = new Film("Actor4", "Language", "2010",(byte)2, (byte)2, 2.4, (short) 1, 2.0, "PG", "Trailers");
-//		Actor a = new Actor("Fabio2", "Louis2");
-//		
-//		 
-//		try {		
-// 
-//			session.beginTransaction();
-//			film.addActor(a);
-//			//a.addFilm(film);
-//			
-//			session.save(film);
-//			 session.save(a);
+		Session session = factory.getCurrentSession(); 
+		
+		  
+		try {		
+ 
+			session.beginTransaction();
+			
+			 LocalDateTime date = LocalDateTime.of(2011, 06, 20, 10, 10, 10);
+			 Staff staff = session.get(Staff.class, 1);
+			 Rental rental = session.get(Rental.class, 1);
+			 
 //			 
-//			
-//			
-//			
-//			
-//			
-//			
-//		 
-//			session.getTransaction().commit();
-//			
-//			System.out.println("Done!");
-//		}
-//		finally {
-//			factory.close();
-//		}
+//			 Payment payment = new Payment( 1, 2.0, date);
+//			 payment.setStaff(staff);
+//			 
+//			 
+//			 
+//			 Store store = session.get(Store.class, 1);
+//			 Address address = session.get(Address.class, 1);
+//			 
+//			 Customer customer = new Customer("Rental", "lastName", "email",(byte) 1, date);
+//			 customer.setStore(store);
+//			 customer.setAddress(address);
+//			 
+//			 customer.addPayment(payment);
+//			 
+//			 
+//			  
+// 			 session.save(customer);
+// 			 session.save(payment);
+			
+		 
+			session.getTransaction().commit();
+			
+			System.out.println("Done!");
+		}
+		finally {
+			factory.close();
+		}
 	}
 
 }
-
 
 

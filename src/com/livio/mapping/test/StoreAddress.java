@@ -1,4 +1,4 @@
-package com.livio.mapping.demo;
+package com.livio.mapping.test;
 
 import java.time.LocalDateTime;
 
@@ -17,8 +17,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration; 
 
-
-public class AddressStaff {
+public class StoreAddress {
 
 	public static void main(String[] args) {
 
@@ -42,28 +41,19 @@ public class AddressStaff {
 				.buildSessionFactory();
 		
 		// create session
-		Session session = factory.getCurrentSession(); 
+		Session session = factory.getCurrentSession();
+		//Film film = new Film("Store3", "Language", "2010",(byte)2, (byte) 1, (byte)2, 2.4, (short) 1, 2.0, "PG", "Trailers");
+		Store store = null;
 		
 		 
- 		
-		
 		try {		
  
-			session.beginTransaction();
+		
 			
-			 Staff staff = new Staff("AddressStaff", "Lulu", "email", (byte)1,"username", "password");
-			 Store store = session.get(Store.class, 1);
-			 staff.setStore(store);
-			 
-			 Address address = new Address("AddressStaff", "47 MySakila Drive2", "Alberta", "PCode", "Phone");
-			 
-			 City city = session.get(City.class, 1);
-			 address.setCity(city);
 			
-			 address.addStaff(staff);
-			 
-			 session.save(address);
-			 session.save(staff);
+			
+			
+			
 		 
 			session.getTransaction().commit();
 			
@@ -75,5 +65,6 @@ public class AddressStaff {
 	}
 
 }
+
 
 

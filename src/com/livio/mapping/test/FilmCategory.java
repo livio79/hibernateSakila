@@ -1,4 +1,4 @@
-package com.livio.mapping.demo;
+package com.livio.mapping.test;
 
 import java.time.LocalDateTime;
 
@@ -17,11 +17,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration; 
 
-//public class FilmInventory {
-//
+public class FilmCategory {
+
 //	public static void main(String[] args) {
 //
-//		// create session factory
 //		SessionFactory factory = new Configuration()
 //				.configure("hibernate.cfg.xml")
 //				.addAnnotatedClass(Actor.class)
@@ -40,22 +39,22 @@ import org.hibernate.cfg.Configuration;
 //				.addAnnotatedClass(Customer.class)
 //				.buildSessionFactory();
 //		
-		// create session
+//		// create session
 //		Session session = factory.getCurrentSession();
-//		Film film = new Film("Indiana", "Language", "2010", (byte) 1, (byte)2, 2.4, (short) 1, 2.0, "PG", "Trailers");
-//		Inventory inventory = new Inventory();
+//		 Film film = new Film("Category", "Language", "2010",(byte)2, (byte) 1, 2.4, (short) 1, 2.0, "PG", "Trailers");
+//		Category category = new Category("New Age");
 //		
 //		 
 //		try {		
+// 
 //			session.beginTransaction();
 //			
-//			Store store = session.get(Store.class, 1);
-//			inventory.setStore(store);
+//			film.addCategory(category);
 //			
-//			film.addInventory(inventory);
 //			
 //			session.save(film);
-//			session.save(inventory);
+//			session.save(category);
+//	
 //			
 //			
 //			
@@ -68,8 +67,8 @@ import org.hibernate.cfg.Configuration;
 //			factory.close();
 //		}
 //	}
-//
-//}
+
+}
 
 
 
