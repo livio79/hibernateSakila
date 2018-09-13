@@ -1,4 +1,4 @@
-package com.livio.jdbc; 
+package com.livio.utility; 
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -21,13 +21,11 @@ public class TestJdbc {
 			
 			Connection myConn =	DriverManager.getConnection(jdbcUrl, user, pass);
 			
-			System.out.println("Connection successful!!!");
+			System.out.println("Connected");
 			
 		}
 		catch (Exception exc) {
 			exc.printStackTrace();
 		}
-		
 	}
-
 }
